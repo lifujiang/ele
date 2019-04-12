@@ -1,18 +1,139 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- 顶部栏 -->
+    <header class="header">
+      <span class="icon">ele.me</span>
+      <span class="lor">登录|注册</span>
+    </header>
+    <!-- 城市定位 -->
+    <div class="city_list">
+      <div class="location">
+        <span class="located">当前定位城市: </span>
+        <span class="choice">定位不准时 , 请在城市列表中选择</span>
+      </div>
+      <div class="select_city">
+        <span class="guess">{{ guess_city.name }}</span>
+        <span class="right_arr">></span>
+      </div>
+    </div>
+    <!-- 热门城市 -->
+    <cityList :city_list="hot_city" :city_word="'热门城市'" :isBlue="true"></cityList>
+    <!-- 遍历A-Z顺序数组 -->
+    <div v-for="(d, index) in all_city" :key="index">
+      <!-- 遍历每一项对象 -->
+      <cityList v-for="(data, i) in d" :key="i" :city_list="data" :city_word="i"></cityList>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import cityList from '../components/city_list.vue'
 export default {
-  name: 'home',
+  data () {
+    return {
+      guess_city: {},
+      hot_city: [],
+      all_city: []
+    }
+  },
+  created () {
+    this.getGuessCity()
+    this.getHotCity()
+    this.getAllCity()
+  },
+  methods: {
+    getGuessCity () {
+      this.axios.get('v1/cities', {
+        params: { type: 'guess' }
+      }).then(item => {
+        this.guess_city = item.data
+      })
+    },
+    getHotCity () {
+      this.axios.get('v1/cities', {
+        params: { type: 'hot' }
+      }).then(item => {
+        this.hot_city = item.data
+      })
+    },
+    getAllCity () {
+      this.axios.get('v1/cities', {
+        params: { type: 'group' }
+      }).then(item => {
+        /* 大坑, v-for 的顺序为 Object.keys, Object.keys在这里并不是A-Z */
+        // 将获取的对象套一层数组, 方便遍历
+        var newKey = Object.keys(item.data).sort()
+        for (var i of newKey) {
+          var obj = {}
+          obj[i] = item.data[i]
+          this.all_city.push(obj)
+        }
+      })
+    }
+  },
   components: {
-    HelloWorld
+    cityList
   }
 }
 </script>
+
+<style lang="scss" scope>
+  .home {
+    @import '../static/styles/mixin';
+    @include bgc(rgb(247, 247, 247));
+    .header{
+      @include flexbw;
+      width: 375px;
+      height: 48px;
+      @include bgc($maincl);
+      .icon {
+        font-size: 18px;
+        color: white;
+        line-height: 53px;
+        padding-left: 10px;
+      }
+      .lor {
+        font-size: 16px;
+        padding-right: 10px;
+        color: #fff;
+        line-height: 55px;
+      }
+    }
+    .city_list {
+      @include bgc(white);
+      width: 375px;
+      .location {
+        @include flexbw;
+        height: 45px;
+        line-height: 50px;
+        border-bottom: 1px solid #ddd;
+        .located {
+          font-size: 13px;
+          padding-left: 10px;
+        }
+        .choice {
+          font-size: 12px;
+          font-weight: bold;
+          padding-right: 10px;
+          color: #aaa;
+        }
+      }
+      .select_city {
+        @include flexbw;
+        height: 40px;
+        line-height: 45px;
+        border-bottom: 1px solid #ddd;
+        .guess {
+          font-size: 18px;
+          margin-left: 10px;
+          color: $maincl;
+        }
+        .right_arr {
+          font-size: 20px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+</style>
+

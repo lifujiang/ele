@@ -1,0 +1,8 @@
+@import './params';
+@mixin bgc($color) {
+  background-color: $color;
+}
+@mixin flexbw() {
+  display: flex;
+  justify-content: space-between;
+}
