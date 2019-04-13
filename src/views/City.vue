@@ -15,12 +15,12 @@
       <p class="word" v-if="search_flag">搜索历史</p>
       <div class="no_res" v-if="res.length === 0">很抱歉! 无搜索结果</div>
       <div class="show_search">
-        <div class="site_box" v-for="item of res" :key="item.geohash" @click="storage(item)">
+        <div class="site_box" v-for="item of res" :key="item.geohash" @click="goandsave(item)">
           <p class="site_name">{{ item.name }}</p>
           <p class="site_addr">{{ item.address }}</p>
         </div>
       </div>
-      <!-- 历史记录存在且在搜索之前才显示按钮 -->
+      <!-- 历史记录存在 且在搜索之前 才显示按钮 -->
       <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0 && search_flag">
         清空所有
       </div>
@@ -83,10 +83,11 @@ export default {
       })
     },
     // 本地储存历史地址
-    storage (item) {
+    goandsave (item) {
       // 通过标识符来确定该信息是否已被储存
       var flag = true
       this.search_his.some(res => {
+        // 判断是否有重复
         if (res.geohash === item.geohash) {
           flag = false
           return true
@@ -96,6 +97,7 @@ export default {
         this.search_his.unshift(item)
         window.localStorage.setItem('addr_his', JSON.stringify(this.search_his))
       }
+      this.$router.push({path: '/msite', query: { geohash: item.geohash }})
     },
     // 清除搜索记录
     clearAll () {
@@ -189,6 +191,8 @@ export default {
         }
       }
       .clear_all {
+        color: #555;
+        font-size: 18px;
         padding: 15px;
         text-align: center;
         @include bgc(white);
