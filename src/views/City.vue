@@ -20,7 +20,8 @@
           <p class="site_addr">{{ item.address }}</p>
         </div>
       </div>
-      <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0">
+      <!-- 历史记录存在且在搜索之前才显示按钮 -->
+      <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0 && search_flag">
         清空所有
       </div>
     </div>
