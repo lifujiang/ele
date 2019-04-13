@@ -185,6 +185,7 @@ export default {
             padding-bottom: 8px;
           }
           .site_addr {
+          overflow: hidden;
             font-size: 13px;
             color: #aaa;
           }

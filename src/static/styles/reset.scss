@@ -7,7 +7,9 @@
 	-webkit-box-sizing: border-box;
 	/* 点击高光 */
 	tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  white-space:nowrap;
+  text-overflow: ellipsis;
 }
 
 body{

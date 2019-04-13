@@ -45,9 +45,7 @@ export default {
       border-top: 1px solid $bordercl;
       border-bottom: 1px solid $bordercl;
       .value {
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow: ellipsis;
+        overflow: hidden;
         font-size: 14px;
         color: rgb(99, 101, 99);
         width: 25%;
