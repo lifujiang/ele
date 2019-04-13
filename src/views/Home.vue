@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="homePage">
     <!-- 顶部栏 -->
     <header class="header">
       <span @click="reload" class="icon">ele.me</span>
@@ -13,7 +13,7 @@
       </div>
       <router-link :to="'/city/' + guess_city.id" class="select_city">
         <span class="guess">{{ guess_city.name }}</span>
-        <span class="right_arr">></span>
+        <span class="right_arr">&gt;</span>
       </router-link>
     </div>
     <!-- 热门城市 -->
@@ -81,9 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scope>
-  .home {
+  .homePage {
     @import '../static/styles/mixin';
-    @include bgc(rgb(247, 247, 247));
+    @include bgc($pagecl);
     .header{
       @include flexbw;
       width: 375px;
@@ -109,7 +109,7 @@ export default {
         @include flexbw;
         height: 45px;
         line-height: 50px;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $bordercl;
         .located {
           font-size: 13px;
           padding-left: 10px;
@@ -125,7 +125,7 @@ export default {
         @include flexbw;
         height: 40px;
         line-height: 45px;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid $bordercl;
         .guess {
           font-size: 18px;
           margin-left: 10px;

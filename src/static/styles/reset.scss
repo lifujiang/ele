@@ -1,7 +1,36 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+*,
+*::before,
+*::after{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	/* 点击高光 */
+	tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body{
+	font-family: "Microsoft YaHei",sans-serif;
+}
+
+ul,
+ol{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	color: #333;
+}
+
+input,
+areatext{
+	border: none;
+	outline: none;
+	resize: none;
+	/* 元素外观 */
+	-webkit-appearance: none;
 }
 
 .clearFix:after {

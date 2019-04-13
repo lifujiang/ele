@@ -26,7 +26,8 @@ export default new Router({
         },
         {
           path: '/city/:id',
-          component: City
+          component: City,
+          props: true
         }
       ]
     }
