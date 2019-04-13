@@ -2,7 +2,7 @@
   <div class="home">
     <!-- 顶部栏 -->
     <header class="header">
-      <span class="icon">ele.me</span>
+      <span @click="reload" class="icon">ele.me</span>
       <span class="lor">登录|注册</span>
     </header>
     <!-- 城市定位 -->
@@ -11,10 +11,10 @@
         <span class="located">当前定位城市: </span>
         <span class="choice">定位不准时 , 请在城市列表中选择</span>
       </div>
-      <div class="select_city">
+      <router-link :to="'/city/' + guess_city.id" class="select_city">
         <span class="guess">{{ guess_city.name }}</span>
         <span class="right_arr">></span>
-      </div>
+      </router-link>
     </div>
     <!-- 热门城市 -->
     <cityList :city_list="hot_city" :city_word="'热门城市'" :isBlue="true"></cityList>
@@ -69,6 +69,9 @@ export default {
           this.all_city.push(obj)
         }
       })
+    },
+    reload () {
+      window.location.reload();
     }
   },
   components: {

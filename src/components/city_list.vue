@@ -2,7 +2,7 @@
   <div class="city_listPage">
     <p class="key">{{ city_word }}</p>
     <ul class="clearFix">
-      <li :class="{isBlue: isBlue ,value: true}" v-for="item of city_list" :key="item.id">{{ item.name }}</li>
+      <li :class="{isBlue: isBlue ,value: true}" @click="toCity(item)" v-for="item of city_list" :key="item.id">{{ item.name }}</li>
     </ul>
   </div>
 </template>
@@ -18,6 +18,9 @@ export default {
   created () {
   },
   methods: {
+    toCity (item) {
+      this.$router.push({path: '/city/' + item.id})
+    }
   }
 }
 </script>
