@@ -11,15 +11,20 @@
         <input type="submit" class="search_btn" @click="show_search">
       </form>
     </div>
-    <div class="search_res" v-if="search_flag">
-      <p class="word">搜索历史</p>
-    </div>
-    <div class="show_search" v-if="!search_flag">
-      <div class="site_box" v-for="item of search_detail" :key="item.geohash">
-        <p class="site_name">{{ item.name }}</p>
-        <p class="site_addr">{{ item.address }}</p>
+    <div class="search_res">
+      <p class="word" v-if="search_flag">搜索历史</p>
+      <div class="no_res" v-if="res.length === 0">很抱歉! 无搜索结果</div>
+      <div class="show_search">
+        <div class="site_box" v-for="item of res" :key="item.geohash" @click="storage(item)">
+          <p class="site_name">{{ item.name }}</p>
+          <p class="site_addr">{{ item.address }}</p>
+        </div>
+      </div>
+      <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0">
+        清空所有
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -30,11 +35,19 @@ export default {
     return {
       search_flag: true,
       city_info: {},
-      search_detail: {}
+      search_detail: [],
+      search_his: [],
+      res: {} // 对象没长度, 这样能使初始状态不显示 no_res
     }
   },
   created () {
     this.getCityInfo()
+    this.search_his = JSON.parse(window.localStorage.getItem('addr_his'))
+    if (!this.search_his) {
+      this.search_his = [] 
+      return
+    } 
+    this.res = this.search_his
   },
   methods: {
     // 返回上一页
@@ -65,7 +78,31 @@ export default {
         }
       }).then(res => {
         this.search_detail = res.data
+        this.res = this.search_detail
       })
+    },
+    // 本地储存历史地址
+    storage (item) {
+      // 通过标识符来确定该信息是否已被储存
+      var flag = true
+      this.search_his.some(res => {
+        if (res.geohash === item.geohash) {
+          flag = false
+          return true
+        }
+      })
+      if (flag) {
+        this.search_his.unshift(item)
+        window.localStorage.setItem('addr_his', JSON.stringify(this.search_his))
+      }
+    },
+    // 清除搜索记录
+    clearAll () {
+      window.localStorage.removeItem('addr_his')
+      // 初始化变量
+      // 历史记录为空数组则"清空所有"按钮隐藏
+      this.search_his = []
+      this.res = {}
     }
   }
 }
@@ -130,22 +167,32 @@ export default {
         padding: 2px 10px;
         border-bottom: 1px solid $bordercl;
       }
-    }
-    .show_search {
-      .site_box {
+      .no_res {
         @include bgc(white);
-        padding: 12px 18px;
-        height: 75px;
-        border-bottom: 1px solid $bordercl;
-        .site_name {
-          font-size: 17px;
-          padding-bottom: 8px;
-        }
-        .site_addr {
-          font-size: 13px;
-          color: #aaa;
+        padding: 10px;
+      }
+      .show_search {
+        .site_box {
+          @include bgc(white);
+          padding: 12px 18px;
+          height: 75px;
+          border-bottom: 1px solid $bordercl;
+          .site_name {
+            font-size: 17px;
+            padding-bottom: 8px;
+          }
+          .site_addr {
+            font-size: 13px;
+            color: #aaa;
+          }
         }
       }
-    }
+      .clear_all {
+        padding: 15px;
+        text-align: center;
+        @include bgc(white);
+        border-bottom: 1px solid $bordercl;
+      }
+    } 
   }
 </style>
