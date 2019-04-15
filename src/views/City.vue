@@ -1,10 +1,16 @@
 <template>
   <div class="cityPage">
-    <header class="header">
-      <span @click="back" class="back">&lt;</span>
-      <span class="city_name">{{ city_info.name }}</span>
-      <span @click="back" class="change_city">切换城市</span>
-    </header>
+    <Header class="HeaderCPNT">
+      <template v-slot:left>
+        <van-icon name="arrow-left" @click="back" class="back" />
+      </template>
+      <template v-slot:default>
+        <span class="city_name">{{ city_info.name }}</span>
+      </template>
+      <template v-slot:right>
+        <span @click="changeCity">切换城市</span>
+      </template>
+    </Header>
     <div class="search">
       <form>
         <input type="search" class="input_search" ref="inputWords" required placeholder="输入学校、商务楼、地址">
@@ -30,6 +36,7 @@
 </template>
 
 <script>
+import Header from '../components/header'
 export default {
   props: ['id'],
   data () {
@@ -106,7 +113,18 @@ export default {
       // 历史记录为空数组则"清空所有"按钮隐藏
       this.search_his = []
       this.res = {}
+    },
+    // 返回上一层
+    back () {
+      this.$router.go(-1)
+    },
+    // 返回选择城市列表
+    changeCity () {
+      this.$router.push({path: '/home'})
     }
+  },
+  components: {
+    Header
   }
 }
 </script>
@@ -117,24 +135,15 @@ export default {
     @include bgc($pagecl);
     width: 375px;
     height: 667px;
-    .header {
-      @include bgc($maincl);
-      height: 48px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      font-size: 16px;
-      line-height: 48px;
+    .HeaderCPNT {
       .back {
-        font-size: 30px;
-        padding-left: 10px;
+        line-height: 48px;
+        font-size: 24px;
       }
       .city_name {
+        overflow:hidden;
         font-size: 20px;
         font-weight: bold;
-      }
-      .change_city {
-        padding-right: 10px;
       }
     }
     .search {

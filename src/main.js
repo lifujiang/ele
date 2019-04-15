@@ -9,6 +9,7 @@ import VueAxios from 'vue-axios'
 
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import 'vant/lib/icon/local.css'
 
 Vue.use(VueAxios, axios)
 Vue.use(Vant)

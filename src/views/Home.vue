@@ -1,10 +1,14 @@
 <template>
   <div class="homePage">
     <!-- 顶部栏 -->
-    <header class="header">
-      <span @click="reload" class="icon">ele.me</span>
-      <span class="lor">登录|注册</span>
-    </header>
+    <Header class="HeaderCPNT">
+      <template v-slot:left>
+        <span class="brand" @click="reload">ele.me</span>
+      </template>
+      <template v-slot:right>
+        <span class="lor">登录|注册</span>
+      </template>
+    </Header>
     <!-- 城市定位 -->
     <div class="city_list">
       <div class="location">
@@ -27,7 +31,8 @@
 </template>
 
 <script>
-import cityList from '../components/city_list.vue'
+import Header from '../components/header'
+import cityList from '../components/city-list.vue'
 export default {
   data () {
     return {
@@ -75,6 +80,7 @@ export default {
     }
   },
   components: {
+    Header,
     cityList
   }
 }
@@ -84,21 +90,14 @@ export default {
   .homePage {
     @import '../static/styles/mixin';
     @include bgc($pagecl);
-    .header{
-      @include flexbw;
-      width: 375px;
-      height: 48px;
-      @include bgc($maincl);
-      .icon {
+    .HeaderCPNT {
+      .brand {
         font-size: 18px;
-        color: white;
         line-height: 53px;
         padding-left: 10px;
       }
       .lor {
         font-size: 16px;
-        padding-right: 10px;
-        color: #fff;
         line-height: 55px;
       }
     }
