@@ -11,27 +11,28 @@
         <span @click="changeCity">切换城市</span>
       </template>
     </Header>
-    <div class="search">
-      <form>
-        <input type="search" class="input_search" ref="inputWords" required placeholder="输入学校、商务楼、地址">
-        <input type="submit" class="search_btn" @click="show_search">
-      </form>
-    </div>
-    <div class="search_res">
-      <p class="word" v-if="search_flag">搜索历史</p>
-      <div class="no_res" v-if="res.length === 0">很抱歉! 无搜索结果</div>
-      <div class="show_search">
-        <div class="site_box" v-for="item of res" :key="item.geohash" @click="goandsave(item)">
-          <p class="site_name">{{ item.name }}</p>
-          <p class="site_addr">{{ item.address }}</p>
+    <main class="main">
+      <div class="search">
+        <form>
+          <input type="search" class="input_search" ref="inputWords" required placeholder="输入学校、商务楼、地址">
+          <input type="submit" class="search_btn" @click="show_search">
+        </form>
+      </div>
+      <div class="search_res">
+        <p class="word" v-if="search_flag">搜索历史</p>
+        <div class="no_res" v-if="res.length === 0">很抱歉! 无搜索结果</div>
+        <div class="show_search">
+          <div class="site_box" v-for="item of res" :key="item.geohash" @click="goandsave(item)">
+            <p class="site_name">{{ item.name }}</p>
+            <p class="site_addr">{{ item.address }}</p>
+          </div>
+        </div>
+        <!-- 历史记录存在 且在搜索之前 才显示按钮 -->
+        <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0 && search_flag">
+          清空所有
         </div>
       </div>
-      <!-- 历史记录存在 且在搜索之前 才显示按钮 -->
-      <div class="clear_all" @click="clearAll" v-if="search_his.length !== 0 && search_flag">
-        清空所有
-      </div>
-    </div>
-    
+    </main>  
   </div>
 </template>
 
@@ -146,68 +147,71 @@ export default {
         font-weight: bold;
       }
     }
-    .search {
-      @include bgc(white);
-      margin-top: 12px;
-      padding-bottom: 10px;
-      padding-top: 15px;
-      border-bottom: 2px solid $bordercl;
-      .input_search {
-        display: block;
-        width: 340px;
-        height: 36px;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        margin: 0 auto;
-        margin-bottom: 12px;
-        padding-left: 10px;
-      }
-      .search_btn {
-        @include bgc($maincl);
-        display: block;
-        border: none;
-        color: #fff;
-        width: 340px;
-        height: 36px;
-        margin: 0 auto;
-        border-radius: 4px;
-      }
-    }
-    .search_res {
-      .word {
-        font-size: 13px;
-        padding: 2px 10px;
-        border-bottom: 1px solid $bordercl;
-      }
-      .no_res {
+    .main {
+      padding-top: 48px;
+      .search {
         @include bgc(white);
-        padding: 10px;
-      }
-      .show_search {
-        .site_box {
-          @include bgc(white);
-          padding: 12px 18px;
-          height: 75px;
-          border-bottom: 1px solid $bordercl;
-          .site_name {
-            font-size: 17px;
-            padding-bottom: 8px;
-          }
-          .site_addr {
-          overflow: hidden;
-            font-size: 13px;
-            color: #aaa;
-          }
+        margin-top: 12px;
+        padding-bottom: 10px;
+        padding-top: 15px;
+        border-bottom: 2px solid $bordercl;
+        .input_search {
+          display: block;
+          width: 340px;
+          height: 36px;
+          border: 1px solid #ccc;
+          border-radius: 2px;
+          margin: 0 auto;
+          margin-bottom: 12px;
+          padding-left: 10px;
+        }
+        .search_btn {
+          @include bgc($maincl);
+          display: block;
+          border: none;
+          color: #fff;
+          width: 340px;
+          height: 36px;
+          margin: 0 auto;
+          border-radius: 4px;
         }
       }
-      .clear_all {
-        color: #555;
-        font-size: 18px;
-        padding: 15px;
-        text-align: center;
-        @include bgc(white);
-        border-bottom: 1px solid $bordercl;
-      }
-    } 
+      .search_res {
+        .word {
+          font-size: 13px;
+          padding: 2px 10px;
+          border-bottom: 1px solid $bordercl;
+        }
+        .no_res {
+          @include bgc(white);
+          padding: 10px;
+        }
+        .show_search {
+          .site_box {
+            @include bgc(white);
+            padding: 12px 18px;
+            height: 75px;
+            border-bottom: 1px solid $bordercl;
+            .site_name {
+              font-size: 17px;
+              padding-bottom: 8px;
+            }
+            .site_addr {
+              overflow: hidden;
+              font-size: 13px;
+              color: #aaa;
+            }
+          }
+        }
+        .clear_all {
+          color: #555;
+          font-size: 18px;
+          padding: 15px;
+          text-align: center;
+          @include bgc(white);
+          border-bottom: 1px solid $bordercl;
+        }
+      } 
+    }
   }
 </style>

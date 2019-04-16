@@ -4,7 +4,7 @@
       <slot name="left"></slot>
       <slot></slot>
       <slot name="right"></slot>
-    </header>
+    </header> 
   </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
 <style lang="scss">
   .headerPage {
     @import '../static/styles/mixin';
+    position: fixed;
     .header {
       @include flexbw;
       width: 375px;
