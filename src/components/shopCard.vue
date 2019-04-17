@@ -1,24 +1,22 @@
 <template>
   <div class="shopCardPage">
     <div class="shopCard clearFix">
-      <img class="shopImg" src="https://elm.cangdu.org/img/164ad0b6a3917599.jpg" alt="">
+      <img class="shopImg" :src="imgsrc + shopList.image_path" alt="">
       <div class="info">
         <div class="info_top">
           <div class="top_left">
             <span class="brand">品牌</span>
-            <span class="shop_name">效果演示</span>
+            <span class="shop_name">{{ shopList.name }}</span>
           </div>
           <div class="top_right">
-            <span>保</span>
-            <span>准</span>
-            <span>票</span>
+            <span v-for="item in shopList.supports" :key="item.id">{{ item.icon_name }}</span>
           </div>
         </div>
         <div class="info_middle">
           <div class="middle_left">
-            <van-rate color="rgb(247, 182, 90)" allow-half v-model="star" size="12px" readonly />
-            <span class="rating">2.0</span>
-            <span class="mon_sale">月售202单</span>
+            <van-rate color="rgb(247, 182, 90)" allow-half :size="12" v-model="star" readonly />
+            <span class="rating">{{ shopList.rating }}</span>
+            <span class="mon_sale">月售{{ shopList.recent_order_num }}单</span>
           </div>
           <div class="middle_right">
             <span class="fengniao">蜂鸟专送</span>
@@ -27,11 +25,11 @@
         </div>
         <div class="info_bottom">
           <div class="bottom_left">
-            <span>&yen;20起送 / 配送费约&yen;5</span>
+            <span>&yen;{{ shopList.float_minimum_order_amount}}起送 / {{ shopList.piecewise_agent_fee.tips}}</span>
           </div>
           <div class="bottom_right">
-            <span>3116公里 / </span>
-            <span class="needTime">32小时48分钟</span>
+            <span>{{ shopList.distance }} / </span>
+            <span class="needTime">{{ shopList.order_lead_time }}</span>
           </div>
         </div>
       </div>
@@ -41,10 +39,16 @@
 
 <script>
 export default {
+  props: ['shopList'],
   data () {
     return {
-      star: 2
+      star: 2,
+      imgsrc: 'https://elm.cangdu.org/img/'
     }
+  },
+  created () {
+    console.log(this.shopList)
+    this.star = this.shopList.rating
   }
 }
 </script>
@@ -149,7 +153,7 @@ export default {
           display:inline-block;
           .bottom_left {
             span {
-              margin-left: -10px;
+              margin-left: -5px;
             }
           }
           .bottom_right {

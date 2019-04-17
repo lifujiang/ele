@@ -17,6 +17,7 @@ export default {
 <style lang="scss">
   .headerPage {
     @import '../static/styles/mixin';
+    z-index: 100;
     position: fixed;
     .header {
       @include flexbw;

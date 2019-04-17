@@ -30,6 +30,11 @@
           </template>
         </cube-slide>
       </div>
+      <div class="nearbyShop">
+        <van-icon class="shop_icon" name="shop-o" />
+        <span>附近商家</span>
+      </div>
+      <shopCard :shopList="item" v-for="(item, index) in shopList" :key="index"></shopCard>
     </main>
     <tabbar />
   </div>
@@ -38,6 +43,7 @@
 <script>
 import tabbar from '../components/tabbar'
 import Header from '../components/header'
+import shopCard from '../components/shopCard'
 export default {
   data() {
     return {
@@ -46,8 +52,11 @@ export default {
       },
       geohash: this.$route.query.geohash,
       addrName: '',
+      latitude: '',
+      longitude: '',
       imgsrc: 'https://fuss10.elemecdn.com',
-      cateList: []
+      cateList: [],
+      shopList: []
     }
   },
   created () {
@@ -58,6 +67,9 @@ export default {
     getAddr () {
       this.axios.get(`v2/pois/${this.geohash}`).then(res => {
         this.addrName = res.data.name
+        this.latitude = res.data.latitude
+        this.longitude = res.data.longitude
+        this.getShopList()
       })
     },
     getFoodsCate () {
@@ -66,13 +78,24 @@ export default {
         this.cateList.push(res.data.slice(8, 16))
       })
     },
+    getShopList () {
+      this.axios.get('shopping/restaurants', {
+        params: {
+          latitude: this.latitude,
+          longitude: this.longitude
+        }
+      }).then(res => {
+        this.shopList = res.data
+      })
+    },
     toHome () {
       this.$router.push({path: '/home'})
     }
   },
   components: {
     tabbar,
-    Header
+    Header,
+    shopCard
   }
 }
 </script>
@@ -100,7 +123,7 @@ export default {
       padding-top: 48px;
       .slidebox {
         padding-bottom: 20px;
-        border: 1px solid $bordercl;
+        border-bottom: 1px solid $bordercl;
         .slide {
           padding-bottom: 10px;
           ul {
@@ -132,6 +155,20 @@ export default {
           .active {
             @include bgc($maincl);
           }
+        }
+      }
+      .nearbyShop {
+        color: #999;
+        padding: 10px;
+        line-height: 28px;
+        .shop_icon {
+          font-size: 17px;
+          vertical-align: middle;
+        }
+        span {
+          font-size: 14px;
+          vertical-align: middle;
+          margin-left: 8px;
         }
       }
     }

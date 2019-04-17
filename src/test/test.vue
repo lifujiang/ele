@@ -16,7 +16,7 @@
         </div>
         <div class="info_middle">
           <div class="middle_left">
-            <van-rate color="rgb(247, 182, 90)" allow-half v-model="star" size="12px" readonly />
+            <van-rate color="rgb(247, 182, 90)" allow-half v-model="star" :size="12" readonly />
             <span class="rating">2.0</span>
             <span class="mon_sale">月售202单</span>
           </div>
