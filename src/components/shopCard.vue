@@ -1,5 +1,5 @@
 <template>
-  <div class="testPage">
+  <div class="shopCardPage">
     <div class="shopCard clearFix">
       <img class="shopImg" src="https://elm.cangdu.org/img/164ad0b6a3917599.jpg" alt="">
       <div class="info">
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .testPage {
+  .shopCardPage {
     @import '../static/styles/mixin';
     .shopCard {
       border-bottom: 1px solid $bordercl;
