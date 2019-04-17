@@ -11,7 +11,7 @@
         <span class="lor">登录|注册</span>
       </template>
     </Header>
-    <main class="main">
+    <div class="cate">
       <div class="slidebox">
           <cube-slide :options="options" :autoPlay="false" class="slide" ref="slide" :data="cateList">
           <cube-slide-item v-for="(item, index) in cateList" :key="index">
@@ -30,6 +30,8 @@
           </template>
         </cube-slide>
       </div>
+    </div>
+    <main class="main">
       <div class="nearbyShop">
         <van-icon class="shop_icon" name="shop-o" />
         <span>附近商家</span>
@@ -103,7 +105,9 @@ export default {
 <style lang="scss" scope>
   @import '../static/styles/mixin';
   .msitePage {
+    @include bgc($pagecl);
     .HeaderCPNT {
+      @include bgc(white);
       .search_icon {
         padding-left: 15px;
         font-size: 24px;
@@ -119,7 +123,8 @@ export default {
         line-height: 48px;
       }
     }
-    .main {
+    .cate {
+      @include bgc(white);
       padding-top: 48px;
       .slidebox {
         padding-bottom: 20px;
@@ -157,9 +162,15 @@ export default {
           }
         }
       }
+    }
+    .main {
+      @include bgc(white);
       .nearbyShop {
         color: #999;
         padding: 10px;
+        padding-top: 5px;
+        border-top: 1px solid $bordercl;
+        margin-top: 10px;
         line-height: 28px;
         .shop_icon {
           font-size: 17px;

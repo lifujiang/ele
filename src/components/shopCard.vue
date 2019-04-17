@@ -47,7 +47,6 @@ export default {
     }
   },
   created () {
-    console.log(this.shopList)
     this.star = this.shopList.rating
   }
 }
