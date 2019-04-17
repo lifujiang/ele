@@ -1,6 +1,6 @@
 <template>
   <div class="shopCardPage">
-    <div class="shopCard clearFix">
+    <div class="shopCard">
       <img class="shopImg" :src="imgsrc + shopList.image_path" alt="">
       <div class="info">
         <div class="info_top">
@@ -55,6 +55,9 @@ export default {
 
 <style lang="scss">
   .shopCardPage {
+    // 禁止卡片左右移动
+    overflow-x: hidden;
+    width: 375px;
     @import '../static/styles/mixin';
     .shopCard {
       border-bottom: 1px solid $bordercl;
@@ -63,12 +66,10 @@ export default {
         display: block;
         float: left;
         height: 60px;
+        padding-right: 10px;
       }
       .info {
         font-size: 12px;
-        width: 299px;
-        float: right;
-        padding-left: 10px;
         color: #555;
         div[class^='info_'] {
          @include flexbw();
