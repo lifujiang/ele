@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" @click="back" class="back" />
       </template>
       <template v-slot:default>
-        <span class="city_name">成都</span>
+        <span class="city_name">{{ title }}</span>
       </template>
       <template v-slot:right>
         <span class="space"></span>
@@ -17,6 +17,7 @@
 <script>
 import Header from './header'
 export default {
+  props:['title'],
   data () {
     return {}
   },
@@ -33,6 +34,7 @@ export default {
 
 <style lang="scss">
   .headerDefaultPage {
+    height: 48px;
     .back {
       line-height: 48px;
       font-size: 24px;

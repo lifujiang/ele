@@ -16,12 +16,10 @@
           <cube-slide :options="options" :autoPlay="false" class="slide" ref="slide" :data="cateList">
           <cube-slide-item v-for="(item, index) in cateList" :key="index">
             <ul>
-              <li v-for="i in item" :key="i.id">
+              <li @click="toFood(i)" v-for="i in item" :key="i.id">
                 <!-- 组件默认跳转链接方式 -->
-                <a :href="'/home'">
-                  <img :src="imgsrc + i.image_url" alt="">
-                  <p>{{ i.title }}</p>
-                </a>
+                <img :src="imgsrc + i.image_url" alt="">
+                <p>{{ i.title }}</p>
               </li>
             </ul>
           </cube-slide-item>
@@ -92,6 +90,19 @@ export default {
     },
     toHome () {
       this.$router.push({path: '/home'})
+    },
+    toFood (i) {
+      var title = i.title
+      var restaurant_category_id = i.id
+      var geohash = this.geohash
+      this.$router.push({
+        path: '/food',
+        query: {
+          geohash,
+          title,
+          restaurant_category_id
+        }
+      })
     }
   },
   components: {

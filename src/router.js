@@ -5,6 +5,8 @@ import App from './App.vue'
 import Home from './views/Home.vue'
 import City from './views/City.vue'
 import Msite from './views/Msite.vue'
+import Food from './views/Food.vue'
+
 import Test from './test/test.vue'
 
 Vue.use(Router)
@@ -34,6 +36,11 @@ export default new Router({
         {
           path: '/msite',
           component: Msite,
+          props: true
+        },
+        {
+          path: '/food',
+          component: Food,
           props: true
         },
         {
