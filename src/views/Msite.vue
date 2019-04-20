@@ -13,7 +13,7 @@
     </Header>
     <div class="cate">
       <div class="slidebox">
-        <van-swipe indicator-color="rgb(49, 146, 239)" class="slide" :width="375">
+        <van-swipe @change="onChange" class="slide" :width="375">
           <van-swipe-item v-for="(item, index) in cateList" :key="index">
             <ul>
               <li @click="toFood(i)" v-for="i in item" :key="i.id">
@@ -22,6 +22,9 @@
                 <p>{{ i.title }}</p>
               </li>
             </ul>
+            <div class="custom-indicator" slot="indicator">
+              {{ current + 1 }}/2
+            </div>
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -105,6 +108,9 @@ export default {
           restaurant_category_id
         }
       })
+    },
+    onChange(index) {
+      this.current = index;
     }
   },
   components: {
@@ -140,13 +146,17 @@ export default {
     .cate {
       @include bgc(white);
       .slidebox {
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         border-bottom: 1px solid $bordercl;
         .slide {
           padding-bottom: 10px;
           ul {
             width: 100%;
             li {
+              // 解决字体抖动问题
+              -webkit-transform-style: preserve-3d;
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
               width: 25%;
               text-align: center;
               float: left;
@@ -162,15 +172,13 @@ export default {
               }
             }
           }
-          .my-dot {
+          .van-swipe__indicator {
+            @include bgc(#ccc);
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            &:last-of-type {
-              margin-left: 10px;
-            } 
           }
-          .active {
+          .van-swipe__indicator--active {
             @include bgc($maincl);
           }
         }
