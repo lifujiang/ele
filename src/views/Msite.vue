@@ -13,8 +13,8 @@
     </Header>
     <div class="cate">
       <div class="slidebox">
-          <cube-slide :options="options" :autoPlay="false" class="slide" ref="slide" :data="cateList">
-          <cube-slide-item v-for="(item, index) in cateList" :key="index">
+        <van-swipe indicator-color="rgb(49, 146, 239)" class="slide" :width="375">
+          <van-swipe-item v-for="(item, index) in cateList" :key="index">
             <ul>
               <li @click="toFood(i)" v-for="i in item" :key="i.id">
                 <!-- 组件默认跳转链接方式 -->
@@ -22,11 +22,8 @@
                 <p>{{ i.title }}</p>
               </li>
             </ul>
-          </cube-slide-item>
-          <template slot="dots" slot-scope="props">
-            <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots" :key="index">{{index + 1}}</span>
-          </template>
-        </cube-slide>
+          </van-swipe-item>
+        </van-swipe>
       </div>
     </div>
     <main class="main">
@@ -47,9 +44,7 @@ import shopCard from '../components/shopCard'
 export default {
   data() {
     return {
-      options: {
-        stopPropagation:true
-      },
+      current: 0,
       geohash: this.$route.query.geohash,
       addrName: '',
       latitude: '',
@@ -64,20 +59,25 @@ export default {
     this.getFoodsCate()
   },
   methods: {
+    // 获取当前位置经纬度及名字
     getAddr () {
       this.axios.get(`v2/pois/${this.geohash}`).then(res => {
         this.addrName = res.data.name
         this.latitude = res.data.latitude
         this.longitude = res.data.longitude
+        // 获取到经纬度 后才能请求商铺列表
         this.getShopList()
       })
     },
+    // 获取食品分类列表
     getFoodsCate () {
       this.axios.get('v2/index_entry').then(res => {
+        // 将数据放入两个数组中来遍历 swipe
         this.cateList.push(res.data.slice(0, 8))
         this.cateList.push(res.data.slice(8, 16))
       })
     },
+    // 获取商店列表
     getShopList () {
       this.axios.get('shopping/restaurants', {
         params: {
@@ -88,9 +88,11 @@ export default {
         this.shopList = res.data
       })
     },
+    // 跳转至选择城市页面
     toHome () {
       this.$router.push({path: '/home'})
     },
+    // 跳转至食品分类详情页面
     toFood (i) {
       var title = i.title
       var restaurant_category_id = i.id

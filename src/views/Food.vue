@@ -39,17 +39,22 @@ export default {
     this.getInfo()
   },
   methods: {
+    // 获取查询字符串里的经纬度(未分开)
     getInfo () {
       this.info = this.$route.query
+      // 获取经纬度之后才能分别得出经度和纬度
       this.getXitude()
     },
+    // 分出经度和纬度
     getXitude () {
       var i = this.info.geohash.indexOf(',')
       var geohash = this.info.geohash
       this.latitude = geohash.slice(0, i)
       this.longitude = geohash.slice(i + 1)
+      // 获得经纬度之后才能请求商铺信息
       this.getShops()
     },
+    // 获取商铺信息
     getShops () {
       this.axios.get('shopping/restaurants', {
         params: {

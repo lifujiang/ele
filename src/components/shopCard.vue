@@ -39,6 +39,7 @@
 
 <script>
 export default {
+  // 父组件的值
   props: ['shopList'],
   data () {
     return {
