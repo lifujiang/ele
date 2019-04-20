@@ -29,8 +29,7 @@ export default {
       font-size: 16px;
       color: white;
       line-height: 48px;
-      padding-left: 5px;
-      padding-right: 10px;
+      padding: 0 10px;
     }
   }
 </style>

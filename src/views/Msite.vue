@@ -124,7 +124,8 @@ export default {
       .search_icon {
         padding-left: 15px;
         font-size: 24px;
-        line-height: 52px;
+        line-height: 48px;
+        padding: 0;
       }
       .city_name {
         font-size: 20px;

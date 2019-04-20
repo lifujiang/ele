@@ -93,12 +93,10 @@ export default {
     .HeaderCPNT {
       .brand {
         font-size: 18px;
-        line-height: 53px;
         padding-left: 10px;
       }
       .lor {
         font-size: 16px;
-        line-height: 55px;
       }
     }
     .city_list {
