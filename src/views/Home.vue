@@ -102,7 +102,6 @@ export default {
       }
     }
     .city_list {
-      padding-top: 48px;
       @include bgc(white);
       width: 375px;
       .location {

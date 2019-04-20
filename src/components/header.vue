@@ -17,13 +17,15 @@ export default {
 <style lang="scss">
   .headerPage {
     @import '../static/styles/mixin';
-    z-index: 100;
-    position: fixed;
+      height: 48px;
+      width: 375px;
+
     .header {
       @include flexbw;
-      width: 375px;
-      height: 48px;
       @include bgc($maincl);
+      z-index: 100;
+      position: fixed;
+      width: 100%;
       font-size: 16px;
       color: white;
       line-height: 48px;

@@ -135,7 +135,6 @@ export default {
     @import '../static/styles/mixin';
     @include bgc($pagecl);
     width: 375px;
-    height: 667px;
     .HeaderCPNT {
       .back {
         line-height: 48px;
@@ -148,7 +147,6 @@ export default {
       }
     }
     .main {
-      padding-top: 48px;
       .search {
         @include bgc(white);
         margin-top: 12px;
