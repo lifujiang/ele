@@ -124,7 +124,6 @@ export default {
 <style lang="scss" scope>
   @import '../static/styles/mixin';
   .msitePage {
-    @include bgc($pagecl);
     .HeaderCPNT {
       @include bgc(white);
       .search_icon {

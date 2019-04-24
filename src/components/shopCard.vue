@@ -118,7 +118,7 @@ export default {
               padding-left: 10px;
               color: rgb(247, 182, 90);
             }
-            .mon_sale{
+            .mon_sale {
               font-size: 10.8px;
               // 通过 scale 和 inline-block 使 chrome 显示小字体
               -webkit-transform: scale(0.8);

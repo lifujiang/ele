@@ -89,7 +89,6 @@ export default {
 <style lang="scss" scope>
   .homePage {
     @import '../static/styles/mixin';
-    @include bgc($pagecl);
     .HeaderCPNT {
       .brand {
         font-size: 18px;

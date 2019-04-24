@@ -133,7 +133,6 @@ export default {
 <style lang="scss" scope>
   .cityPage {
     @import '../static/styles/mixin';
-    @include bgc($pagecl);
     width: 375px;
     .HeaderCPNT {
       .back {
