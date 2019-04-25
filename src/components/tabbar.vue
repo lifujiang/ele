@@ -1,7 +1,7 @@
 <template>
   <div class="footerPage">
     <van-tabbar v-model="active">
-      <van-tabbar-item>
+      <van-tabbar-item @click="home">
         <span>外卖</span>
         <img
           slot="icon"
@@ -9,7 +9,7 @@
           :src="props.active ? icon.elm_a : icon.elm_n"
         >
       </van-tabbar-item>
-      <van-tabbar-item>
+      <van-tabbar-item @click="search">
         <span>搜索</span>
         <img
           slot="icon"
@@ -39,9 +39,9 @@
 
 <script>
 export default {
+  props: ['i'],
   data () {
     return {
-      active: 0,
       icon: {
         elm_n: require('../static/icon/elm.svg'),
         elm_a: require('../static/icon/elm_active.svg'),
@@ -51,8 +51,34 @@ export default {
         order_a: require('../static/icon/order_active.svg'),
         user_n: require('../static/icon/user.svg'),
         user_a: require('../static/icon/user_active.svg')
-      }
+      },
+      active: this.i
     }
+  },
+  computed: {
+    // 获取geohash
+    geohash () {
+      return this.$store.state.site.geohash
+    }
+  },
+  methods: {
+    home () {
+      this.active = 0
+      this.$router.push({
+        path: `/msite`,
+        query: {
+          geohash: this.geohash
+        }
+      })
+    },
+    search () {
+      this.active = 1
+      this.$router.push({
+        path: `/search/${this.geohash}`
+      })
+    }
+  },
+  created () {
   }
 }
 </script>

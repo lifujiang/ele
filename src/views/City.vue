@@ -44,7 +44,6 @@ export default {
     return {
       search_flag: true,
       city_info: {},
-      search_detail: [],
       search_his: [],
       res: {} // 对象没长度, 这样能使初始状态不显示 no_res
     }
@@ -86,8 +85,7 @@ export default {
           keyword: this.$refs.inputWords.value
         }
       }).then(res => {
-        this.search_detail = res.data
-        this.res = this.search_detail
+        this.res = res.data
       })
     },
     // 本地储存历史地址
@@ -105,6 +103,7 @@ export default {
         this.search_his.unshift(item)
         window.localStorage.setItem('addr_his', JSON.stringify(this.search_his))
       }
+      this.$store.commit('getSiteInfo', item)
       this.$router.push({path: '/msite', query: { geohash: item.geohash }})
     },
     // 清除搜索记录

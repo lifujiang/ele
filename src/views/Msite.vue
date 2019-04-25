@@ -36,7 +36,7 @@
       </div>
       <shopCard :shopList="item" v-for="(item, index) in shopList" :key="index"></shopCard>
     </main>
-    <tabbar />
+    <tabbar :i="0" />
   </div>
 </template>
 

@@ -1,16 +1,18 @@
 <template>
-  <div class="testPage">
+  <div class="searchPage">
     <!-- 头部 -->
     <header-default :title="'搜索'"></header-default>
     <div class="keyword">
       <input type="search" class="search_input" placeholder="请输入商家或美食名称">
       <button class="search_btn">提交</button>
     </div>
+    <tabbar :i="1" />
   </div>
 </template>
 
 <script>
 import headerDefault from '../components/header-default'
+import tabbar from '../components/tabbar'
 export default {
   data () {
     return {
@@ -21,13 +23,14 @@ export default {
 
   },
   components: {
-    headerDefault
+    headerDefault,
+    tabbar
   }
 }
 </script>
 
 <style lang="scss">
-  .testPage {
+  .searchPage {
     @import '../static/styles/mixin';
     .keyword {
       @include bgc(white);

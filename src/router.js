@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import City from './views/City.vue'
 import Msite from './views/Msite.vue'
 import Food from './views/Food.vue'
+import Search from './views/Search.vue'
 
 import Test from './test/test.vue'
 
@@ -41,6 +42,11 @@ export default new Router({
         {
           path: '/food',
           component: Food,
+          props: true
+        },
+        {
+          path: '/search/:geohash',
+          component: Search,
           props: true
         },
         {
