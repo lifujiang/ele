@@ -2,10 +2,12 @@
   <div class="searchPage">
     <!-- 头部 -->
     <header-default :title="'搜索'"></header-default>
+    <!-- 搜索关键字 -->
     <div class="keyword">
       <input type="search" class="search_input" placeholder="请输入商家或美食名称">
       <button class="search_btn">提交</button>
     </div>
+    <!-- 底部 -->
     <tabbar :i="1" />
   </div>
 </template>

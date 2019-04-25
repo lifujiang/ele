@@ -1,8 +1,9 @@
 <template>
   <div class="msitePage">
+    <!-- 顶部 -->
     <Header class="HeaderCPNT">
       <template slot:left>
-        <van-icon name="search" class="search_icon" />
+        <van-icon name="search" class="search_icon" @click="toSearch" />
       </template>
       <template>
         <span class="city_name" @click="toHome">{{ addrName }}</span>
@@ -11,6 +12,7 @@
         <span class="lor">登录|注册</span>
       </template>
     </Header>
+    <!-- 食品分类 -->
     <div class="cate">
       <div class="slidebox">
         <van-swipe @change="onChange" class="slide" :width="375">
@@ -29,6 +31,7 @@
         </van-swipe>
       </div>
     </div>
+    <!-- 商店列表 -->
     <main class="main">
       <div class="nearbyShop">
         <van-icon class="shop_icon" name="shop-o" />
@@ -36,6 +39,7 @@
       </div>
       <shopCard :shopList="item" v-for="(item, index) in shopList" :key="index"></shopCard>
     </main>
+    <!-- 底部 -->
     <tabbar :i="0" />
   </div>
 </template>
@@ -94,6 +98,11 @@ export default {
     // 跳转至选择城市页面
     toHome () {
       this.$router.push({path: '/home'})
+    },
+    toSearch () {
+      this.$router.push({
+        path: `search/${this.geohash}`
+      })
     },
     // 跳转至食品分类详情页面
     toFood (i) {

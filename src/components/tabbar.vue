@@ -1,7 +1,7 @@
 <template>
   <div class="footerPage">
     <van-tabbar v-model="active">
-      <van-tabbar-item @click="home">
+      <van-tabbar-item @click="msite">
         <span>外卖</span>
         <img
           slot="icon"
@@ -17,7 +17,7 @@
           :src="props.active ? icon.search_a : icon.search_n"
         >
       </van-tabbar-item>
-      <van-tabbar-item>
+      <van-tabbar-item @click="order">
         <span>订单</span>
         <img
           slot="icon"
@@ -62,7 +62,8 @@ export default {
     }
   },
   methods: {
-    home () {
+    // 食品首页
+    msite () {
       this.active = 0
       this.$router.push({
         path: `/msite`,
@@ -71,10 +72,18 @@ export default {
         }
       })
     },
+    // 搜索
     search () {
       this.active = 1
       this.$router.push({
         path: `/search/${this.geohash}`
+      })
+    },
+    // 订单页
+    order () {
+      this.active = 2
+      this.$router.push({
+        path: '/order'
       })
     }
   },
