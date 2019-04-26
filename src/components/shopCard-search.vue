@@ -1,16 +1,18 @@
 <template>
-  <div class="testPage">
+  <div class="shopCardSearchPage">
     <div class="shopCard clearFix">
       <div class="img">
-        <img src="https://elm.cangdu.org/img/16a4332789632586.jpg" alt="">
+        <img :src="imgsrc + res.image_path" alt="">
       </div>
       <div class="info">
         <p class="title">
-          <span>孟123</span>
-          <span class="pay">支付</span>
+          <span>{{ res.name }}</span>
+          <span class="pay">
+            <span class="payword">支付</span>
+          </span>
         </p>
-        <p>月售 636 单</p>
-        <p>20 元起送 / 距离 1895.4 公里</p>
+        <p>月售 {{ res.recent_order_num }} 单</p>
+        <p>{{ res.float_minimum_order_amount }} 元起送 / 距离{{ res.distance }}</p>
       </div>
     </div>
   </div>
@@ -18,12 +20,19 @@
 
 <script>
 export default {
-  
+  props: ['res'],
+  data () {
+    return {
+      imgsrc: 'https://elm.cangdu.org/img/'
+    }
+  },
+  created () {
+  }
 }
 </script>
 
 <style lang="scss">
-  .testPage {
+  .shopCardSearchPage {
     @import '../static/styles/mixin.scss';
     .shopCard {
       height: 100px;
@@ -53,14 +62,18 @@ export default {
         .title {
           .pay {
             font-weight: bold;
-            color: rgb(255, 138, 66);
+            color: rgb(255, 105, 16);
             font-size: 10.8px;
             margin-left: 3px;
             display: inline-block;
-            border: 1px solid rgb(255, 138, 66);
+            border: 1px solid rgb(255, 105, 16);
             padding: 1px;
             transform: skew(-20deg);
             -webkit-transform: scale(0.8) skew(-20deg);
+            // 提升美感
+            .payword {
+              border-bottom: 1px solid rgb(255, 105, 16);
+            }
           }
         }
       }

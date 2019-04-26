@@ -15,7 +15,7 @@
       <div class="search">
         <form>
           <input type="search" class="input_search" ref="inputWords" required placeholder="输入学校、商务楼、地址">
-          <input type="submit" class="search_btn" @click="show_search">
+          <input type="submit" class="search_btn" @click="showSearch">
         </form>
       </div>
       <div class="search_res">
@@ -63,7 +63,7 @@ export default {
       this.$router.push({path: '/home'})
     },
     // 显示搜索结果
-    show_search (e) {
+    showSearch (e) {
       if (this.$refs.inputWords.value) {
         this.search_flag = false
         // 阻止提交表单默认行为
