@@ -25,7 +25,7 @@
           :src="props.active ? icon.order_a : icon.order_n"
         >
       </van-tabbar-item>
-      <van-tabbar-item>
+      <van-tabbar-item @click="profile">
         <span>我的</span>
         <img
           slot="icon"
@@ -84,6 +84,12 @@ export default {
       this.active = 2
       this.$router.push({
         path: '/order'
+      })
+    },
+    profile () {
+      this.active = 3
+      this.$router.push({
+        path: '/profile'
       })
     }
   },

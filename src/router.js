@@ -8,6 +8,7 @@ import Msite from './views/Msite.vue'
 import Food from './views/Food.vue'
 import Search from './views/Search.vue'
 import Order from './views/Order.vue'
+import Profile from './views/Profile.vue'
 
 import Test from './test/test.vue'
 
@@ -52,7 +53,11 @@ export default new Router({
         },
         {
           path: '/order',
-          component: Order,
+          component: Order
+        },
+        {
+          path: '/profile',
+          component: Profile
         },
         {
           path: '/test',
