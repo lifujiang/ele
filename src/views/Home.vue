@@ -6,7 +6,7 @@
         <span class="brand" @click="reload">ele.me</span>
       </template>
       <template v-slot:right>
-        <span class="lor">登录|注册</span>
+        <router-link to="/login" class="login">登录|注册</router-link>
       </template>
     </Header>
     <!-- 城市定位 -->
@@ -94,8 +94,9 @@ export default {
         font-size: 18px;
         padding-left: 10px;
       }
-      .lor {
+      .login {
         font-size: 16px;
+        color: white;
       }
     }
     .city_list {

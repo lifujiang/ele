@@ -9,6 +9,7 @@ import Food from './views/Food.vue'
 import Search from './views/Search.vue'
 import Order from './views/Order.vue'
 import Profile from './views/Profile.vue'
+import Login from './views/Login.vue'
 
 import Test from './test/test.vue'
 
@@ -58,6 +59,10 @@ export default new Router({
         {
           path: '/profile',
           component: Profile
+        },
+        {
+          path: '/login',
+          component: Login
         },
         {
           path: '/test',

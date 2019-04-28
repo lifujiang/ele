@@ -9,7 +9,7 @@
         <span class="city_name" @click="toHome">{{ addrName }}</span>
       </template>
       <template slot:right>
-        <span class="lor">登录|注册</span>
+        <router-link class="login" to="/login">登录|注册</router-link>
       </template>
     </Header>
     <!-- 食品分类 -->
@@ -146,9 +146,10 @@ export default {
         overflow:hidden;
         max-width: 188px;
       }
-      .lor {
+      .login {
         font-size: 16px;
         line-height: 48px;
+        color: white;
       }
     }
     .cate {

@@ -1,5 +1,5 @@
 <template>
-  <div class="testPage">
+  <div class="loginPage">
     <!-- 顶部 -->
     <header-default :title="'密码登录'"></header-default>
     <!-- 主体 -->
@@ -36,12 +36,16 @@
         >
         </van-field>
       </van-cell-group>
+      <!-- 温馨提示 -->
       <p class="tips">温馨提示: 未注册过的账号, 登录时将自动注册</p>
       <p class="tips">注册过的用户可凭账号密码登录</p>
+      <!-- 登录按钮 -->
       <div class="login_btn">
         <van-button size="large" type="primary" @click="login">登录</van-button>
       </div>
+      <!-- 未输入值提示 -->
       <Notice :title="lack_word" :show="show" @hidden-notice="hiddenNotice"></Notice>
+      <!-- 重置密码 -->
       <div class="repassword">
         <router-link to="/home" class="word">重置密码?</router-link>
       </div>
@@ -118,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .testPage {
+  .loginPage {
     @import '../static/styles/mixin.scss';
     .main {
       padding-top: 12px;

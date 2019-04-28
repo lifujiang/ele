@@ -191,12 +191,13 @@ export default {
           @include bgc(white);
           .search_history_word {
             padding: 15px;
+            padding-left: 10px;
             border-bottom: 1px solid $bordercl;
           }
           .clearAll {
             text-align: center;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 16px;
             padding: 15px;
             color: $maincl;
           }
