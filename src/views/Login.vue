@@ -94,7 +94,8 @@ export default {
     // 登录
     login () {
       // 缺少关键字
-      this.lack_keyword()
+      var flag = this.lack_keyword()
+      if (!flag) return
     },
     // 缺少关键字
     lack_keyword () {
@@ -105,7 +106,7 @@ export default {
       } else if (!this.checking) {
         this.lack_word = this.lack_check 
       } else {
-        return
+        return true
       }
       this.show = true
     },

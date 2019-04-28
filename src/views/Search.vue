@@ -71,6 +71,10 @@ export default {
           keyword: this.keyword
         }
       }).then(res => {
+        if (res.data.status === 0) {
+          this.res_flag = 2
+          return
+        }
         this.res = res.data
         // 判断搜索结果是否存在
         this.isExist()
