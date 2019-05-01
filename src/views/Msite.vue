@@ -136,6 +136,7 @@ export default {
     .HeaderCPNT {
       @include bgc(white);
       .search_icon {
+        height: 48px;
         padding-left: 15px;
         font-size: 24px;
         line-height: 48px;

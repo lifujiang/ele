@@ -10,6 +10,8 @@ import Search from './views/Search.vue'
 import Order from './views/Order.vue'
 import Profile from './views/Profile.vue'
 import Login from './views/Login.vue'
+import Service from './views/Service.vue'
+import Question from './views/qusetion.vue'
 
 import Test from './test/test.vue'
 
@@ -63,6 +65,16 @@ export default new Router({
         {
           path: '/login',
           component: Login
+        },
+        {
+          path: '/service',
+          component: Service,
+          props: true
+        },
+        {
+          path: '/question/:num',
+          component: Question,
+          props: true
         },
         {
           path: '/test',

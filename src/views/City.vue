@@ -152,6 +152,7 @@ export default {
     width: 375px;
     .HeaderCPNT {
       .back {
+        height: 48px;
         line-height: 48px;
         font-size: 24px;
       }

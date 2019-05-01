@@ -36,6 +36,7 @@ export default {
   .headerDefaultPage {
     height: 48px;
     .back {
+      height: 48px;
       line-height: 48px;
       font-size: 24px;
     }
@@ -45,7 +46,7 @@ export default {
       font-weight: bold;
     }
     .space {
-      // 设置与左边图标宽度想等
+      // 设置与左边图标宽度相等
       width: 25px;
     }
   }

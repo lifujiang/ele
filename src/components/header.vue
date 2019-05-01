@@ -19,7 +19,6 @@ export default {
     @import '../static/styles/mixin';
       height: 48px;
       width: 375px;
-
     .header {
       @include flexbw;
       @include bgc($maincl);

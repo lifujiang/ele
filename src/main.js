@@ -12,6 +12,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import 'vant/lib/icon/local.css'
 
+import './static/icon/iconfont/iconfont.css'
+
 Vue.use(VueAxios, axios)
 Vue.use(Vant)
 Vue.axios.defaults.baseURL = 'https://elm.cangdu.org'

@@ -1,118 +1,98 @@
 <template>
   <div class="testPage">
     <!-- 顶部 -->
-    <header-default :title="'密码登录'"></header-default>
-    <!-- 主体 -->
-    <div class="main">
-      <!-- 输入框 -->
-      <van-cell-group>
-        <!-- 用户名 -->
-        <van-field
-          v-model="username"
-          required
-          clearable
-          label="用户名"
-          placeholder="请输入用户名"
-          @click-right-icon="$toast('question')"
-        />
-        <!-- 密码 -->
-        <van-field
-          v-model="password"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          required
-        />
-        <!-- 验证码 -->
-        <van-field
-          v-model="checking"
-          center
-          required
-          clearable
-          label="验证码"
-          placeholder="请输入验证码"
-          :right-icon="imgsrc"
-          @click-right-icon="refresh"
-        >
-        </van-field>
-      </van-cell-group>
-      <p class="tips">温馨提示: 未注册过的账号, 登录时将自动注册</p>
-      <p class="tips">注册过的用户可凭账号密码登录</p>
-      <div class="login_btn">
-        <van-button size="large" type="primary" @click="login">登录</van-button>
+    <header-default :title="'我的'"></header-default>
+    <!-- 个人信息 -->
+    <div class="myProfile">
+      <div class="info clearFix" @click="loginOrInfo">
+        <div class="avatar">
+          <span class="iconfont icon-user-nologin"></span>
+        </div>
+        <div class="loginInfo">
+          <p class="login">
+              登录/注册
+          </p>
+          <p class="phone">
+            <span class="iconfont icon-phone"></span>
+            <span>暂无绑定手机号</span>
+          </p>
+        </div>
+        <van-icon name="arrow" color="#fff" />
       </div>
-      <Notice :title="lack_word" :show="show" @hidden-notice="hiddenNotice"></Notice>
-      <div class="repassword">
-        <router-link to="/home" class="word">重置密码?</router-link>
+      <ul class="aboutMoney">
+        <li>
+          <p><span class="moneyOrange">0.00</span>元</p>
+          <p>我的余额</p>
+        </li>
+        <li>
+          <p><span class="discountRed">0</span>个</p>
+          <p>我的优惠</p>
+        </li>
+        <li>
+          <p><span class="pointsGreen">0</span>分</p>
+          <p>我的积分</p>
+        </li>
+      </ul>
+    </div>
+    <!-- 功能 -->
+    <div class="function">
+      <div>
+        <span class="iconfont icon-order"></span>
+        <p>
+          <span>我的订单</span>
+          <van-icon name="arrow" color="#bbb" />
+        </p>       
+      </div>
+      <div>
+        <span class="iconfont icon-shop-bag"></span>
+        <p>
+          <span>积分商城</span>
+          <van-icon name="arrow" color="#bbb" />
+        </p>       
+      </div>
+      <div>
+        <span class="iconfont icon-vip"></span>
+        <p class="noBorder">
+          <span>饿了么会员</span>
+          <van-icon name="arrow" color="#bbb" />
+        </p>       
+      </div>
+      <div>
+        <span class="iconfont icon-server-center"></span>
+        <p>
+          <span>服务中心</span>
+          <van-icon name="arrow" color="#bbb" />
+        </p>       
+      </div>
+      <div>
+        <span class="elm">e</span>
+        <p class="noBorder">
+          <span>下载饿了么APP</span>
+          <van-icon name="arrow" color="#bbb" />
+        </p>       
       </div>
     </div>
+    <!-- 底部 -->
+    <tabbar :i="3" />
   </div>
 </template>
 
 <script>
 import headerDefault from '../components/header-default'
-import Notice from '../components/Notice'
+import tabbar from '../components/tabbar'
 export default {
   data () {
-    return {
-      // 用户名
-      username: '',
-      // 密码
-      password: '',
-      // 验证码
-      checking: '',
-      // 验证码图片
-      imgsrc: '',
-      // 是否显示错误提示, 该标识需传给子组件
-      show: false,
-      // 错误提示文字(统一传入子组件)
-      lack_word: '',
-      // 具体提示文字(赋值给 lack_word )
-      lack_username: '请输入手机号/邮箱/用户名',
-      lack_pw: '请输入密码',
-      lack_check: '请输入验证码'
-    }
+    return {}
   },
-  created () {
-    this.getCaptchas()
-  },
+  created: {},
   methods: {
-    // 获取验证码
-    getCaptchas () {
-      this.axios.post('v1/captchas').then(res => {
-        this.imgsrc = res.data.code
-      })
-    },
-    // 刷新验证码
-    refresh () {
-      this.getCaptchas()
-    },
-    // 登录
-    login () {
-      // 缺少关键字
-      this.lack_keyword()
-    },
-    // 缺少关键字
-    lack_keyword () {
-      if (!this.username) {
-        this.lack_word = this.lack_username
-      } else if (!this.password) {
-        this.lack_word = this.lack_pw
-      } else if (!this.checking) {
-        this.lack_word = this.lack_check 
-      } else {
-        return
-      }
-      this.show = true
-    },
-    // 子组件自定义事件(通过改变 show(子组件受影响), 隐藏提示)
-    hiddenNotice () {
-      this.show = false
+    loginOrInfo () {
+      this.$router.push('/login')
     }
   },
   components: {
     headerDefault,
-    Notice
+    tabbar
   }
 }
 </script>
@@ -120,35 +100,123 @@ export default {
 <style lang="scss">
   .testPage {
     @import '../static/styles/mixin.scss';
-    .main {
-      padding-top: 12px;
-      // 验证码图标容器
-      .van-field__right-icon {
-        width: 100px;
-        height: 30px;
-        // 验证码图片
-        .van-icon--image {
-          width: 100%;
-          height: 100%;
+    .myProfile {
+      width: 100%;
+      margin-bottom: 10px;
+      .info {
+        @include bgc($maincl);
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        .avatar {
+          width: 60px;
+          display: inline-block;
+          border-radius: 50%;
+          .icon-user-nologin {
+            color: #eee;
+            font-size: 70px;
+          }
+        }
+        .loginInfo {
+          flex-grow: 1;
+          color: #ffffff;
+          line-height: 25px;
+          margin-left: 10px;
+          display: inline-block;
+          .login {
+            padding-left: 5px;
+            font-size: 19px;
+            font-weight: bold;
+          }
+          .phone {
+            font-size: 14px;
+            .icon-phone {
+              display: inline-block;
+              vertical-align: top;
+              font-size: 19px;
+            }
+          }
         }
       }
-      // 温馨提示
-      .tips {
-        padding: 10px;
-        font-size: 12px;
-        color: red;
-      }
-      // 登录按钮
-      .login_btn {
-        padding: 0 13px;
-      }
-      // 重置密码
-      .repassword {
-        padding: 25px 13px;
-        text-align: right;
-        .word {
+      .aboutMoney {
+        @include bgc(white);
+        display: flex;
+        // 容器
+        li {
+          color: #555;
           font-size: 14px;
-          color: $maincl;
+          display: inline-block;
+          flex-grow: 1;
+          padding: 10px;
+          text-align: center;
+          // 不设置最后一个容器的边框
+          &:not(:last-of-type) {
+            border-right: 1px solid $bordercl;
+          }
+          // 文字内容(两行)
+          p {
+            padding: 5px;
+            // 数字样式
+            span {
+              font-size: 30px;
+              font-weight: bold;
+            }
+          }
+          .moneyOrange {
+            color: rgb(255, 154, 0);
+          }
+          .discountRed {
+            color: rgb(255, 93, 57);
+          }
+          .pointsGreen {
+            color: rgb(107, 195, 8);
+          }
+        }
+      }
+    }
+    .function {
+      margin-bottom: 10px;
+      // 功能容器
+      div {
+        @include bgc(white);
+        display: flex;
+        font-size: 16px;
+        padding-left: 15px;
+        vertical-align: middle;
+        align-items: center;
+        // 图标
+        > span {
+          font-size: 17px;
+        }
+        .icon-shop-bag {
+          color: rgb(255, 121, 82);
+        }
+        .icon-vip {
+          color: rgb(255, 199, 49);
+        }
+        .icon-server-center {
+          color: rgb(74, 166, 247);
+        }
+        .elm {
+            font-size: 17px;
+            color: $maincl;
+            padding-bottom: 2px;
+            padding-right: 5px;
+          }
+        // 文字与箭头
+        p {
+          @include flexbw;
+          border-bottom: 1px solid #efefef;
+          padding: 12px 0;
+          padding-right: 5px;
+          margin-left: 10px;
+          flex-grow: 1;
+        }
+        .noBorder {
+          border: none;
+        }
+        &:nth-of-type(3) {
+          margin-bottom: 10px;
         }
       }
     }

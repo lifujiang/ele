@@ -62,13 +62,14 @@ export default {
     .shopCard {
       border-bottom: 1px solid $bordercl;
       padding: 18px 8px;
+      display: flex;
       .shopImg {
-        display: block;
-        float: left;
+        display: inline-block;
         height: 60px;
         padding-right: 10px;
       }
       .info {
+        flex-grow: 1;
         font-size: 12px;
         color: #555;
         div[class^='info_'] {
