@@ -24,7 +24,7 @@
       <div class="res" v-if="res_flag == 1">
         <p class="shopWord">商家</p>
         <div class="shopCard">
-          <shopCard-search v-for="item of res" :key="item.id" :res="item"></shopCard-search>
+          <shopCard-search v-for="item of res" :key="item.id" :geohash="geohash" :res="item"></shopCard-search>
         </div>
       </div>
       <!-- 不存在记录 -->
@@ -47,6 +47,7 @@ export default {
       res_flag: 0, // 控制显示搜索结果(1代表存在结果, 2代表不存在结果, 0为搜索前)
       res: [], // 搜索结果(商店数据)
       his: [], // 历史记录数组(存储本地)
+      geohash: this.$route.params.geohash,
       keyword: '' // 搜索关键字
     }
   },
@@ -67,7 +68,7 @@ export default {
     getSearchRes () {
       this.axios.get('v4/restaurants', {
         params: {
-          geohash: this.$route.params.geohash,
+          geohash: this.geohash,
           keyword: this.keyword
         }
       }).then(res => {

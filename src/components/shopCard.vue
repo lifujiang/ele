@@ -1,6 +1,6 @@
 <template>
   <div class="shopCardPage">
-    <div class="shopCard">
+    <div class="shopCard" @click="toShop">
       <img class="shopImg" :src="imgsrc + shopList.image_path" alt="">
       <div class="info">
         <div class="info_top">
@@ -40,7 +40,7 @@
 <script>
 export default {
   // 父组件的值
-  props: ['shopList'],
+  props: ['shopList', 'geohash'],
   data () {
     return {
       star: 2,
@@ -49,6 +49,16 @@ export default {
   },
   created () {
     this.star = this.shopList.rating
+  },
+  methods: {
+    toShop () {
+      this.$router.push({
+        path: '/shop',
+        query: {
+          geohash: this.geohash,
+          id: this.shopList.id
+      }})
+    }
   }
 }
 </script>

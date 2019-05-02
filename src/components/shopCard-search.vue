@@ -1,6 +1,6 @@
 <template>
   <div class="shopCardSearchPage">
-    <div class="shopCard clearFix">
+    <div class="shopCard" @click="toShop">
       <div class="img">
         <img :src="imgsrc + res.image_path" alt="">
       </div>
@@ -20,13 +20,21 @@
 
 <script>
 export default {
-  props: ['res'],
+  props: ['res', 'geohash'],
   data () {
     return {
       imgsrc: 'https://elm.cangdu.org/img/'
     }
   },
-  created () {
+  methods: {
+    toShop () {
+      this.$router.push({
+        path: '/shop',
+        query: {
+          geohash: this.geohash,
+          id: this.res.id
+      }})
+    }
   }
 }
 </script>

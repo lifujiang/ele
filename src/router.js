@@ -12,6 +12,7 @@ import Profile from './views/Profile.vue'
 import Login from './views/Login.vue'
 import Service from './views/Service.vue'
 import Question from './views/qusetion.vue'
+import Shop from './views/Shop.vue'
 
 import Test from './test/test.vue'
 
@@ -75,6 +76,10 @@ export default new Router({
           path: '/question/:num',
           component: Question,
           props: true
+        },
+        {
+          path: '/shop',
+          component: Shop
         },
         {
           path: '/test',

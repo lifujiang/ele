@@ -37,7 +37,7 @@
         <van-icon class="shop_icon" name="shop-o" />
         <span>附近商家</span>
       </div>
-      <shopCard :shopList="item" v-for="(item, index) in shopList" :key="index"></shopCard>
+      <shopCard v-for="(item, index) in shopList" :key="index" :shopList="item" :geohash="geohash"></shopCard>
     </main>
     <!-- 底部 -->
     <tabbar :i="0" />
