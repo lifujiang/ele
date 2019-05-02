@@ -1,6 +1,6 @@
 <template>
-  <div class="shopPage">
-    <header class="header" v-if="res">
+  <div class="shopPage" v-if="res">
+    <header class="header" >
       <div class="arrowLeft">
         <van-icon name="arrow-left" @click="back" />
       </div>
@@ -24,7 +24,7 @@
         </p>
       </div>
     </header>
-    <van-popup v-model="show" :overlay="false">
+    <van-popup v-model="show" :overlay="false" v-if="res.activities.length">
       <p class="name">{{ res.name }}</p>
       <div class="content">
         <p>
@@ -64,7 +64,7 @@ export default {
     getShopDetail () {
       this.axios.get(`shopping/restaurant/${this.id}`).then(res => {
         this.res = res.data
-        console.log(this.res)
+        this.isRight = true
       })
     },
     back () {
