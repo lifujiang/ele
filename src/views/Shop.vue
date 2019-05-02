@@ -25,7 +25,7 @@
       </div>
     </header>
     <van-popup v-model="show" :overlay="false">
-      <p class="name">title</p>
+      <p class="name">{{ res.name }}</p>
       <div class="content">
         <p>
           <span class="title">优惠信息</span>
