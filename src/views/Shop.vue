@@ -1,5 +1,6 @@
 <template>
   <div class="shopPage" v-if="res">
+    <!-- 头部 -->
     <header class="header" >
       <div class="arrowLeft">
         <van-icon name="arrow-left" @click="back" />
@@ -13,6 +14,7 @@
         </div>
         <van-icon name="arrow" class="arrowRight" />
       </div>
+      <!-- 活动 -->
       <div class="activity" v-if="res.activities.length" @click="showPopup">
         <p>
           <span class="discount">{{ res.activities[0].icon_name }}</span>
@@ -24,6 +26,7 @@
         </p>
       </div>
     </header>
+    <!-- 活动弹出页 -->
     <van-popup v-model="show" :overlay="false" v-if="res.activities.length">
       <p class="name">{{ res.name }}</p>
       <div class="content">
@@ -41,12 +44,22 @@
       </div>
       <van-icon name="close" class="clsBTN" @click="hiddenPopup" />
     </van-popup>
-
-    </div>
+    <!-- tab -->
+    <van-tabs title-active-color="rgb(49, 146, 239)" color="rgb(49, 146, 239)" :line-width="30">
+      <!-- 商品区域 -->
+      <van-tab title="商品">
+        
+      </van-tab>
+      <!-- 评论 -->
+      <van-tab title="评论">
+        <comment :id="id" />
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 
 <script>
+import comment from '../components/comment.vue'
 export default {
   data () {
     return {
@@ -76,6 +89,9 @@ export default {
     hiddenPopup () {
       this.show = false
     }
+  },
+  components: {
+    comment
   }
 }
 </script>
@@ -163,7 +179,6 @@ export default {
           border-radius: 2px;
           padding: 2px 1px;
         }
-        
       }
       .clsBTN {
         font-size: 55px;
