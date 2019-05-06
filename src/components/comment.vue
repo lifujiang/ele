@@ -1,5 +1,5 @@
 <template>
-  <div class="CommentCPNTPage">
+  <div class="CommentCPNT">
     <header class="Commentheader">
       <div class="left">
         <p class="rating">4.6</p>
@@ -88,7 +88,6 @@ export default {
         }
       }).then(res => {
         this.commentRes = res.data
-        console.log(this.commentRes)
       })
     },
     avatar (avatar) {
@@ -108,7 +107,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .CommentCPNTPage {
+  .CommentCPNT {
     @import '../static/styles/mixin.scss';
     color: #555;
     .Commentheader {

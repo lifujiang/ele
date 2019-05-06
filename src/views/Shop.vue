@@ -48,7 +48,7 @@
     <van-tabs title-active-color="rgb(49, 146, 239)" color="rgb(49, 146, 239)" :line-width="30">
       <!-- 商品区域 -->
       <van-tab title="商品">
-        
+        <goods :id="id" />
       </van-tab>
       <!-- 评论 -->
       <van-tab title="评论">
@@ -59,7 +59,8 @@
 </template>
 
 <script>
-import comment from '../components/comment.vue'
+import comment from '../components/comment'
+import goods from '../components/goods'
 export default {
   data () {
     return {
@@ -91,7 +92,8 @@ export default {
     }
   },
   components: {
-    comment
+    comment,
+    goods
   }
 }
 </script>
