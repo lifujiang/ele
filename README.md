@@ -1,6 +1,6 @@
 # 仿饿了么项目
 
-项目 DEMO 地址: https://lifujiang.github.io/ele
+项目 DEMO 地址: https://lifujiang.github.io/ele (请使用移动端或 Chrome 模拟移动端查看)
 
 原项目地址: https://github.com/bailicangdu/vue2-elm
 

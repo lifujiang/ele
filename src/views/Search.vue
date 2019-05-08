@@ -71,12 +71,17 @@ export default {
           geohash: this.geohash,
           keyword: this.keyword
         }
-      }).then(res => {
+      })
+      .then(res => {
         if (res.data.status === 0) {
           this.res_flag = 2
           return
         }
         this.res = res.data
+      })
+      // 防止请求错误
+      // 暂时修复此处, 注意: 重构时需将其他处修改(包括获取失败处理)
+      .finally(() => {
         // 判断搜索结果是否存在
         this.isExist()
       })
