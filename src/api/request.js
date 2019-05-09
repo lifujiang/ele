@@ -31,10 +31,10 @@ function post (url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, QS.stringify(params))
       .then(res => {
-        resolve(res.data)
+        resolve(res)
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   })
 }
