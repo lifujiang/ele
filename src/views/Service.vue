@@ -46,12 +46,16 @@ export default {
   methods: {
     getExplain () {
       if (!this.$store.state.explainContent.length) {
-        this.axios.get('v3/profile/explain').then(res => {
+        this.$api.explain()
+        .then(res => {
           this.$store.commit('getInfo', {
             data: res.data,
             name: 'explain'
           })
           this.toList(res.data)
+        })
+        .catch(err => {
+          this.$api.error(err)
         })
       }
     },

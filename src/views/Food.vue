@@ -53,14 +53,16 @@ export default {
     },
     // 获取商铺信息
     getShops () {
-      this.axios.get('shopping/restaurants', {
-        params: {
-          latitude: this.latitude,
-          longitude: this.longitude,
-          restaurant_category_id: this.info.restaurant_category_id
-        }
-      }).then(res => {
+      this.$api.shopList({
+        latitude: this.latitude,
+        longitude: this.longitude,
+        restaurant_category_id: this.info.restaurant_category_id
+      })
+      .then(res => {
         this.shopList = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     }
   },

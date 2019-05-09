@@ -66,11 +66,9 @@ export default {
     },
     // 获取搜索结果
     getSearchRes () {
-      this.axios.get('v4/restaurants', {
-        params: {
-          geohash: this.geohash,
-          keyword: this.keyword
-        }
+      this.$api.searchRes({
+        geohash: this.geohash,
+        keyword: this.keyword
       })
       .then(res => {
         if (res.data.status === 0) {
@@ -78,12 +76,12 @@ export default {
           return
         }
         this.res = res.data
-      })
-      // 防止请求错误
-      // 暂时修复此处, 注意: 重构时需将其他处修改(包括获取失败处理)
-      .finally(() => {
-        // 判断搜索结果是否存在
         this.isExist()
+      })
+      .catch(err => {
+        // 这里无论获取成功与否都需要储存历史记录
+        this.isExist()
+        this.$api.error(err)
       })
     },
     // 判断是否存在搜索结果
@@ -135,7 +133,7 @@ export default {
       if (val === '') {
         this.res_flag = 0
       }
-    } 
+    }
   },
   components: {
     headerDefault,

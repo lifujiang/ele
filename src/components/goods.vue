@@ -3,9 +3,7 @@
     <cube-scroll-nav
       :side="true"
       :data="data"
-      :current="current"
-      @change="changeHandler"
-      @sticky-change="stickyChangeHandler">
+      :current="current">
       <cube-scroll-nav-panel
         v-for="item in data"
         :key="item.id"
@@ -49,21 +47,16 @@ export default {
   },
   methods: {
     getGoods () {
-      this.axios.get('shopping/v2/menu', {
-        params: {
-          restaurant_id: this.id
-        }
-      }).then(res => {
+      this.$api.goods({
+        restaurant_id: this.id
+      })
+      .then(res => {
         this.data = res.data
         this.current = this.data[0].id
-        console.log(this.data)
       })
-    },
-     changeHandler(label) {
-      console.log('changed to:', label)
-    },
-    stickyChangeHandler(current) {
-      console.log('sticky-change', current)
+      .catch(err => {
+        this.$api.error(err)
+      })
     }
   }
 }
@@ -120,7 +113,7 @@ export default {
           color: #999;
         }
         .tag {
-          border-radius: 8px;          
+          border-radius: 8px;
           display: inline-block;
           padding: 1px;
           border: 1px solid #f07373;

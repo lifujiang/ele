@@ -41,35 +41,35 @@
         <p>
           <span>我的订单</span>
           <van-icon name="arrow" color="#bbb" />
-        </p>       
+        </p>
       </router-link>
       <div>
         <span class="iconfont icon-shop-bag"></span>
         <p>
           <span>积分商城</span>
           <van-icon name="arrow" color="#bbb" />
-        </p>       
+        </p>
       </div>
       <div>
         <span class="iconfont icon-vip"></span>
         <p class="noBorder">
           <span>饿了么会员</span>
           <van-icon name="arrow" color="#bbb" />
-        </p>       
+        </p>
       </div>
       <router-link tag="div" to="/service">
         <span class="iconfont icon-server-center"></span>
         <p>
           <span>服务中心</span>
           <van-icon name="arrow" color="#bbb" />
-        </p>       
+        </p>
       </router-link>
       <div>
         <span class="elm">e</span>
         <p class="noBorder">
           <span>下载饿了么APP</span>
           <van-icon name="arrow" color="#bbb" />
-        </p>       
+        </p>
       </div>
     </div>
     <!-- 底部 -->

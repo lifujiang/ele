@@ -68,31 +68,41 @@ export default {
   methods: {
     // 获取当前位置经纬度及名字
     getAddr () {
-      this.axios.get(`v2/pois/${this.geohash}`).then(res => {
+      this.$api.addr(this.geohash)
+      .then(res => {
         this.addrName = res.data.name
         this.latitude = res.data.latitude
         this.longitude = res.data.longitude
         // 获取到经纬度 后才能请求商铺列表
         this.getShopList()
       })
+      .catch(err => {
+        this.$api.error(err)
+      })
     },
     // 获取食品分类列表
     getFoodsCate () {
-      this.axios.get('v2/index_entry').then(res => {
+      this.$api.foodsCate()
+      .then(res => {
         // 将数据放入两个数组中来遍历 swipe
         this.cateList.push(res.data.slice(0, 8))
         this.cateList.push(res.data.slice(8, 16))
       })
+      .catch(err => {
+        this.$api.error(err)
+      })
     },
     // 获取商店列表
     getShopList () {
-      this.axios.get('shopping/restaurants', {
-        params: {
-          latitude: this.latitude,
-          longitude: this.longitude
-        }
-      }).then(res => {
+      this.$api.shopList({
+        latitude: this.latitude,
+        longitude: this.longitude
+      })
+      .then(res => {
         this.shopList = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     // 跳转至选择城市页面

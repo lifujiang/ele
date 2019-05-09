@@ -76,9 +76,13 @@ export default {
   },
   methods: {
     getShopDetail () {
-      this.axios.get(`shopping/restaurant/${this.id}`).then(res => {
+      this.$api.shop(this.id)
+      .then(res => {
         this.res = res.data
         this.isRight = true
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     back () {

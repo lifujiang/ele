@@ -48,31 +48,43 @@ export default {
   },
   methods: {
     getGuessCity () {
-      this.axios.get('v1/cities', {
-        params: { type: 'guess' }
-      }).then(item => {
-        this.guess_city = item.data
+      this.$api.cities({
+        type: 'guess'
+      })
+      .then(res => {
+        this.guess_city = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     getHotCity () {
-      this.axios.get('v1/cities', {
-        params: { type: 'hot' }
-      }).then(item => {
-        this.hot_city = item.data
+      this.$api.cities({
+        type: 'hot'
+      })
+      .then(res => {
+        this.hot_city = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     getAllCity () {
-      this.axios.get('v1/cities', {
-        params: { type: 'group' }
-      }).then(item => {
+      this.$api.cities({
+        type: 'group'
+      })
+      .then(res => {
         /* 大坑, v-for 的顺序为 Object.keys, Object.keys在这里并不是A-Z */
         // 将获取的对象套一层数组, 方便遍历
-        var newKey = Object.keys(item.data).sort()
+        var newKey = Object.keys(res.data).sort()
         for (var i of newKey) {
           var obj = {}
-          obj[i] = item.data[i]
+          obj[i] = res.data[i]
           this.all_city.push(obj)
         }
+      })
+      .catch(err => {
+        API.error(err)
       })
     },
     reload () {

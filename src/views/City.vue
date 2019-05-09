@@ -33,7 +33,7 @@
         <!-- 历史记录存在 才显示按钮 -->
         <div class="clear_all" @click="clearAll" v-if="search_flag === 0 && search_his.length !== 0">清空所有</div>
       </div>
-    </main>  
+    </main>
   </div>
 </template>
 
@@ -68,8 +68,12 @@ export default {
     },
     // 获取城市信息(标题)
     getCityInfo () {
-      this.axios.get(`v1/cities/${this.id}`).then(res => {
+      this.$api.cityInfo(this.id)
+      .then(res => {
         this.city_info = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     // 显示搜索结果
@@ -83,15 +87,17 @@ export default {
     },
     // 获取搜索信息
     getSearchInfo () {
-      this.axios.get('v1/pois', {
-        params: {
-          city_id: this.id,
-          keyword: this.keyword
-        }
-      }).then(res => {
+      this.$api.searchInfo({
+        city_id: this.id,
+        keyword: this.keyword
+      })
+      .then(res => {
         this.res = res.data
         // 判断是否有返回结果
         this.isExist()
+      })
+      .catch(err => {
+        this.$app.error(err)
       })
     },
     // 判断是否有返回结果
@@ -225,7 +231,7 @@ export default {
           @include bgc(white);
           border-bottom: 1px solid $bordercl;
         }
-      } 
+      }
     }
   }
 </style>

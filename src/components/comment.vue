@@ -66,9 +66,13 @@ export default {
   },
   methods: {
     getCommentTags () {
-      this.axios.get(`ugc/v2/restaurants/${this.id}/ratings/tags`).then(res => {
+      this.$api.commentTags(this.id)
+      .then(res => {
         this.commentCate = res.data
         this.getComment()
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     filter (item, index) {
@@ -80,14 +84,19 @@ export default {
       activeElement.classList.add('active')
     },
     getComment (tagname='全部') {
-      this.axios.get(`ugc/v2/restaurants/${this.id}/ratings`, {
+      this.$api.comment({
+        id: this.id,
         params: {
           tag_name: tagname,
           offset: 0,
           limit: 10
         }
-      }).then(res => {
+      })
+      .then(res => {
         this.commentRes = res.data
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     avatar (avatar) {

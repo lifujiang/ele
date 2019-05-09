@@ -4,9 +4,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './static/styles/reset.scss'
-
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+// 引入 API 接口文件
+import api from './api/getAPI'
 
 import Vant from 'vant'
 import 'vant/lib/index.css'
@@ -14,9 +13,10 @@ import 'vant/lib/icon/local.css'
 
 import './static/icon/iconfont/iconfont.css'
 
-Vue.use(VueAxios, axios)
 Vue.use(Vant)
-Vue.axios.defaults.baseURL = 'https://elm.cangdu.org'
+
+// 挂载 API 文件到 prototype
+Vue.prototype.$api = api
 
 Vue.config.productionTip = false
 

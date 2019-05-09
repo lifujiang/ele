@@ -83,8 +83,12 @@ export default {
   methods: {
     // 获取验证码
     getCaptchas () {
-      this.axios.post('v1/captchas').then(res => {
+      this.$api.captchas()
+      .then(res => {
         this.imgsrc = res.data.code
+      })
+      .catch(err => {
+        this.$api.error(err)
       })
     },
     // 刷新验证码
@@ -104,7 +108,7 @@ export default {
       } else if (!this.password) {
         this.lack_word = this.lack_pw
       } else if (!this.checking) {
-        this.lack_word = this.lack_check 
+        this.lack_word = this.lack_check
       } else {
         return true
       }
