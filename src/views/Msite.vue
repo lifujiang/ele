@@ -173,10 +173,7 @@ export default {
           ul {
             width: 100%;
             li {
-              // 解决字体抖动问题
-              -webkit-transform-style: preserve-3d;
-              backface-visibility: hidden;
-              -webkit-backface-visibility: hidden;
+              @include wordShake;              
               width: 25%;
               text-align: center;
               float: left;

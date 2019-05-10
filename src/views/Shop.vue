@@ -105,6 +105,7 @@ export default {
 <style lang="scss">
   .shopPage {
     @import '../static/styles/mixin.scss';
+    @include wordShake;
     width: 375px;
     .header {
       padding: 8px;
