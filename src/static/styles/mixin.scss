@@ -6,3 +6,9 @@
   display: flex;
   justify-content: space-between;
 }
+// 解决字体抖动问题
+@mixin wordShake () {
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

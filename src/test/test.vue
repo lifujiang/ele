@@ -9,43 +9,26 @@
           @click="clickList(index)"
           ref="menuList"
           class="menu-item"
-          v-for="(goods, index) in data"
-          :key="goods.id"
+          v-for="(foods, index) in data"
+          :key="foods.id"
           :class="{current: index === currentIndex}">
-            <span class="menu-title">{{ goods.name }}</span>
+            <span class="menu-title">{{ foods.name }}</span>
           </li>
         </ul>
       </div>
       <!-- 商品栏 -->
       <div class="goods-wrapper">
         <!-- 导航栏标题 -->
-        <ul class="goods-ul">
-          <li>
-            <div>
-              <h4></h4>
-              <h5></h5>
-              <span></span>
+        <ul class="goods-ul" ref="goodsList">
+          <li class="goods-li" v-for="foods in data" :key="foods.id">
+            <div class="title-box">
+              <span class="title">{{ foods.name }}</span>
+              <span class="subTitle"></span>
+              <span class="detail">...</span>
             </div>
-            <ul ref="goodsList">
-              <li class="goods-li" v-for="goods in data" :key="goods.id">
-                <div class="foodCard" v-for="food in goods.foods" :key="food.id">
-                  <div class="left">
-                    <img :src="imgsrc + food.image_path" alt="">
-                  </div>
-                  <div class="right">
-                    <p class="title">{{ food.name }}</p>
-                    <p class="subTitle">{{ food.description }}</p>
-                    <p>月售{{ food.month_sales }}份 好评率{{ food.satisfy_rate }}%</p>
-                    <p class="tag" v-if="food.activity">{{ food.activity.image_text }}</p>
-                    <div class="priceSection">
-                      <p class="left">
-                        <span class="price">&yen;20</span>
-                        <span> 起</span>
-                      </p>
-                      <span>+</span>
-                    </div>
-                  </div>
-                </div>
+            <ul>
+              <li v-for="food in foods.foods" :key="food.id">
+                <food-card :food="food"></food-card>
               </li>
             </ul>
           </li>
@@ -57,6 +40,7 @@
 
 <script>
 import BScroll from 'better-scroll'
+import foodCard from '../components/foodCard'
 export default {
   data () {
     return {
@@ -67,16 +51,15 @@ export default {
     }
   },
   created () {
-    this.getGoods()
+    this.getFoods()
   },
   methods: {
-    getGoods () {
+    getFoods () {
       this.$api.goods({
         restaurant_id: 1
       })
       .then(res => {
         this.data = res.data
-        console.log(this.data)
       })
       .catch(err => {
         this.$api.error(err)
@@ -129,6 +112,9 @@ export default {
         return scrollY >= tops && scrollY < rightLiTops[index +1]
       })
     }
+  },
+  components: {
+    foodCard
   }
 }
 </script>
@@ -165,7 +151,17 @@ export default {
       .goods-wrapper {
         height: 375px;
         .goods-ul {
-
+          .goods-li {
+            .title-box {
+              height: 40px;
+              line-height: 40px;
+              .title {
+                
+              }
+              .subTitle {}
+              .detail {}
+            }
+          }
         }
       }
     }
@@ -175,7 +171,6 @@ export default {
       padding: 13px;
       display: flex;
       font-size: 12px;
-      width: 375px;
       .left {
         margin-right: 10px;
         img {
