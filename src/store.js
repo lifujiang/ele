@@ -8,7 +8,8 @@ export default new Vuex.Store({
     site: {},
     explain: {},
     explainCaption: [],
-    explainContent: []
+    explainContent: [],
+    parentScroll: undefined
   },
   mutations: {
     // 从 City 页面获取经纬度信息

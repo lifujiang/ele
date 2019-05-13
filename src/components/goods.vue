@@ -42,12 +42,15 @@
 import BScroll from 'better-scroll'
 import foodCard from '../components/foodCard'
 export default {
+  props: ['id', 'scroll'],
   data () {
     return {
       imgsrc: 'https://elm.cangdu.org/img/',
       data: undefined,
       scrollY: 0,
-      rightLiTops: []
+      rightLiTops: [],
+      posY: 0,
+      i: 0
     }
   },
   created () {
@@ -66,12 +69,26 @@ export default {
       })
     },
     _initBScroll () {
-      this.leftBscroll = new BScroll('.menu-wrapper', {click: true});
+      this.leftBscroll = new BScroll('.menu-wrapper', {
+        click: true,
+        probeType: 3,
+        bounce: false
+      });
       this.rightBscroll = new BScroll('.goods-wrapper', {
-        probeType: 3
+        probeType: 3,
+        bounce: false
       })
       this.rightBscroll.on('scroll', (pos) => {
         this.scrollY = Math.abs(pos.y)
+      })
+      this.scrolls = [this.leftBscroll, this.rightBscroll]
+      this.scrolls.forEach(scroll => {
+        scroll.on('scroll', pos => {
+          if (pos.y > -1) {
+            scroll.disable()
+            this.parentScroll.enable()
+          }
+        })
       })
     },
     _initRightHeight () {
@@ -86,14 +103,33 @@ export default {
       })
       this.rightLiTops = itemArray;
     },
-    _initLeftScroll(index){
-      let menu = this.$refs.menuList;
-      let el = menu[index];
-      this.leftBscroll.scrollToElement(el,300,0,-300)
-    },
     clickList (index) {
       this.scrollY = this.rightLiTops[index]
       this.rightBscroll.scrollTo(0, -this.scrollY, 200)
+    },
+    parentScroll () {
+      var shopPage = document.querySelector('.shopPage')
+      this.parentScroll = new BScroll(shopPage, {
+        click: true,
+        probeType: 3,
+        bounce: false
+      })
+      this.$store.commit('getInfo', {
+        name: 'parentScroll',
+        data: this.parentScroll
+      })
+      this.parentScroll.on('scroll', pos => {
+        if (pos.y <= -170) {
+          this.parentScroll.disable()
+          this.scrolls.forEach(scroll => {
+            scroll.enable()
+          })
+        } else {
+          this.scrolls.forEach(scroll => {
+            scroll.disable()
+          })
+        }
+      })
     }
   },
   watch: {
@@ -101,14 +137,15 @@ export default {
       this.$nextTick(() => {
         this._initBScroll()
         this._initRightHeight()
+        this.posY = document.body.getBoundingClientRect().y
+        this.parentScroll()
       })
-    }
+    },
   },
   computed: {
     currentIndex(index) {
       const { scrollY, rightLiTops } = this
       return rightLiTops.findIndex((tops, index) => {
-        this._initLeftScroll(index)
         return scrollY >= tops && scrollY < rightLiTops[index +1]
       })
     }
